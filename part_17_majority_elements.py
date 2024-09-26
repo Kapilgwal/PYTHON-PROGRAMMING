@@ -53,7 +53,6 @@ def majorityElementsBest(arr: list[int]) -> int:
     if cnt > len(arr) / 2:
         return ele
 
-
 def main():
     arr = [3, 2, 3, 2, 2, 2]
     print(majorityElements(arr))
