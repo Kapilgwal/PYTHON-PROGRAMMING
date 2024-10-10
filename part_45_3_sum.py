@@ -68,9 +68,6 @@ def threeSumBest(arr : list[int], sum : int) -> list[list[int]]:
 
     return ans
 
-                
-                
-
 def main():
     sum = 0
     arr = [-1,0,1,2,-1,-4]
