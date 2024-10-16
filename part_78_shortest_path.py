@@ -7,7 +7,10 @@ def shortestPath(grid : list[list[int]],src : list[int],dest : list[int]) -> int
     while pq:
         dist,node = heapq.heappop()
         
+        if node == dest:
+            return dist 
         
+        for adjNode in adj[node]
     
 
 def main():
