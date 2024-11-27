@@ -1,36 +1,31 @@
-def bitonicSubsequence(arr: list[int]) -> int:
-    """Find the length of the longest bitonic subsequence."""
+def find_number_of_LIS(arr):
     n = len(arr)
-    if n == 0:
-        return 0
 
-    # Step 1: Compute LIS for each element
-    lis = [1] * n
-    for i in range(1, n):
-        for j in range(i):
-            if arr[i] > arr[j]:
-                lis[i] = max(lis[i], lis[j] + 1)
+    dp = [1] * n
+    count = [1] * n
 
-    # Step 2: Compute LDS for each element
-    lds = [1] * n
-    for i in range(n - 2, -1, -1):
-        for j in range(i + 1, n):
-            if arr[i] > arr[j]:
-                lds[i] = max(lds[i], lds[j] + 1)
+    maxi = 1
 
-    # Step 3: Combine LIS and LDS to find the maximum bitonic subsequence length
-    max_bitonic = 0
     for i in range(n):
-        max_bitonic = max(max_bitonic, lis[i] + lds[i] - 1)
+        for prev_index in range(i):
+            if arr[prev_index] < arr[i] and dp[prev_index] + 1 > dp[i]:
+                dp[i] = dp[prev_index] + 1
+                count[i] = count[prev_index]
+            elif arr[prev_index] < arr[i] and dp[prev_index] + 1 == dp[i]:
+                count[i] += count[prev_index]
+        
+        maxi = max(maxi, dp[i])
 
-    return max_bitonic
+    num_of_LIS = 0
 
+    for i in range(n):
+        if dp[i] == maxi:
+            num_of_LIS += count[i]
 
-def main():
-    arr = [1, 11, 2, 10, 4, 5, 2, 1]
-    ans = bitonicSubsequence(arr)
-    print("Length of the longest bitonic subsequence is:", ans)
+    return num_of_LIS
 
 
 if __name__ == "__main__":
-    main()
+    arr = [1, 5, 4, 3, 2, 6, 7, 2]
+
+    print("The count of Longest Increasing Subsequences is:", find_number_of_LIS(arr))
